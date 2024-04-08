@@ -1,0 +1,3 @@
+"0","import logging; "
+"0","logging.getLogger().setLevel(logging.CRITICAL)"
+"0",""

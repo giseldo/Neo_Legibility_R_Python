@@ -1,0 +1,14 @@
+"0","plt.figure(figsize=(8, 2))"
+"1","<Figure size 800x200 with 0 Axes>
+"
+"0","plt.boxplot(df['storypoints'], vert=False)"
+"1","{'whiskers': [<matplotlib.lines.Line2D object at 0x000001C6670858A0>, <matplotlib.lines.Line2D object at 0x000001C667085B40>], 'caps': [<matplotlib.lines.Line2D object at 0x000001C667085DE0>, <matplotlib.lines.Line2D object at 0x000001C667086080>], 'boxes': [<matplotlib.lines.Line2D object at 0x000001C667085600>], 'medians': [<matplotlib.lines.Line2D object at 0x000001C667086320>], 'fliers': [<matplotlib.lines.Line2D object at 0x000001C6670865C0>], 'means': []}
+"
+"0","plt.title('Boxplot da Coluna Story Point')"
+"1","Text(0.5, 1.0, 'Boxplot da Coluna Story Point')
+"
+"0","plt.xlabel('Valores do Story Point')"
+"1","Text(0.5, 0, 'Valores do Story Point')
+"
+"0","plt.show()"
+"0",""

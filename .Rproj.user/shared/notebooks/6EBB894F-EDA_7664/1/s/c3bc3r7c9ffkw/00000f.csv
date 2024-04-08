@@ -1,0 +1,4 @@
+"0","vec = TfidfVectorizer(max_features=50)"
+"0","tfidf_matrix_treino = vec.fit_transform(dados_treino['context'])"
+"0","tfidf_matrix_teste = vec.transform(dados_teste['context'])"
+"0",""

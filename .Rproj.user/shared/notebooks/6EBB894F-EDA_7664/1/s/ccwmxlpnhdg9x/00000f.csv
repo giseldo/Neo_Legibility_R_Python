@@ -1,0 +1,14 @@
+"0","model = SVR()"
+"0","model.fit(dados_treino[colunas], dados_treino['storypoints'])"
+"1","SVR()
+"
+"0","y_pred = model.predict(dados_teste[colunas])"
+"0","mae_leg = mean_absolute_error(dados_teste['storypoints'], y_pred)"
+"0","df_results = df_results.append({'modelo':'Legibility SVM', 'MAE Teste': mae_leg, 'color': 'orange'}, ignore_index=True)"
+"2","<string>:1: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+"
+"0","df_results"
+"1","           modelo  MAE Teste   color
+0           Media   1.319374    blue
+1  Legibility SVM   1.221740  orange
+"

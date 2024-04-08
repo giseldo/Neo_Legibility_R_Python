@@ -1,0 +1,28 @@
+{
+    "id": "AFE04FAA",
+    "path": "C:/Projetos/Neo_Legibility_R_Python/scripts/EDA_7664.Rmd",
+    "project_path": "scripts/EDA_7664.Rmd",
+    "type": "r_markdown",
+    "hash": "96354611",
+    "contents": "",
+    "dirty": false,
+    "created": 1712520298954.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "tempName": "Untitled1",
+        "chunk_output_type": "inline",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "144,39",
+        "scrollLine": "139"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1712538759,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1712538759816,
+    "read_only": false,
+    "read_only_alternatives": []
+}

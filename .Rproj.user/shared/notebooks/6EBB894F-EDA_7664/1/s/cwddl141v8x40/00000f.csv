@@ -1,0 +1,11 @@
+"0","df['storypoints'].describe()"
+"1","count    355.000000
+mean       2.732394
+std        7.186298
+min        0.000000
+25%        1.000000
+50%        2.000000
+75%        3.000000
+max      128.000000
+Name: storypoints, dtype: float64
+"

@@ -1,0 +1,5 @@
+"0","df_results = pd.DataFrame(data=[['Media', mae_media_sp, 'blue']], columns=['modelo', 'MAE Teste', ""color""])"
+"0","df_results"
+"1","  modelo  MAE Teste color
+0  Media   1.319374  blue
+"
