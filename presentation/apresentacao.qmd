@@ -1,6 +1,6 @@
 ---
 title: "Neo Legibility Effort Model"
-subtitle: "Tese de Giseldo da Silva Neo"
+subtitle: "Giseldo da Silva Neo"
 format:
   revealjs: 
     theme: default
@@ -58,56 +58,46 @@ df.head()
 Made by Giseldo
 :::
 
-## Story Point {.smaller}
+## Story Point  {.smaller}
 
-Contagem antes da remoção dos outliers.
+### Projeto 7764
+
+Detecado presença de outliers.
 
 ```{python}
 value_count = df['storypoints'].value_counts().sort_index()
-df_value_count = pd.DataFrame(data = {'Story Points': value_count.index, 'Contagem': value_count.values})
-df_value_count
 ```
 
-::: footer
-Made by Giseldo
-:::
+:::: {.columns}
 
-## Story Point 2 {.smaller}
-
-Gráfico de barras antes da remoção dos Story Points.
-
+::: {.column width="60%"}
 ```{python}
-plt.figure(figsize=(8, 6))
-value_count.plot(kind='bar')
-plt.title('Contagem dos Story Points do Projeto 7764')
+plt.figure(figsize=(6, 4))
+value_count.plot(kind='bar', color=['blue'])
 plt.xlabel('Story Points')
-plt.ylabel('Contagem de vezes')
+plt.ylabel('Contagem')
 plt.show()
 ```
-
-::: footer
-Made by Giseldo
 :::
 
-## Story Point 3 {.smaller}
-
-Boxplot antes da remoção dos Story Points.
-
+::: {.column width="40%"}
 ```{python}
-plt.figure(figsize=(8, 2))
-plt.boxplot(df['storypoints'], vert=False)
-plt.title('Boxplot dos Story Points')
-plt.xlabel('Valores do Story Points')
+plt.figure(figsize=(4,4))
+plt.boxplot(df['storypoints'])
+plt.xticks([1], ['Story Points'])
 plt.show()
 ```
+:::
+
+::::
 
 ::: footer
 Made by Giseldo
 :::
 
-## Remoção Outiliers {.smaller auto-animate="true"}
+## Código para remoção dos outiliers {.smaller auto-animate="true"}
 
-Foram removidos os Story Poits 2 desvios padrão depois da média.
+Foram removidos os Story Poits 2 desvios padrão antes e depois da média.
 
 ``` r
 mean = df['storypoints'].mean()
@@ -127,59 +117,45 @@ df_clean = df[(df['storypoints'] >= mean - outlier_cutoff) & (df['storypoints'] 
 Made by Giseldo
 :::
 
-## Story Point 1 {.smaller}
+## Story Point (sem outliers) {.smaller .scrollable}
 
-Contagem, depois da remoção dos outliers.
-
-```{python}
-value_count = df['storypoints'].value_counts().sort_index()
-df_value_count = pd.DataFrame(data = {'Story Points': value_count.index, 'Contagem': value_count.values})
-df_value_count
-```
-
-::: footer
-Made by Giseldo
-:::
-
-## Story Point 2 {.smaller}
-
-Boxplot, depois da remoção dos outliers.
-
-```{python}
-plt.figure(figsize=(8,2))
-plt.boxplot(df_clean['storypoints'], vert=False)
-plt.title('Boxplot dos Story Points do Projeto 7764 depois da remoção dos outliers')
-plt.show()
-```
-
-::: footer
-Made by Giseldo
-:::
-
-## Story Point 3 {.smaller}
-
-Gráfico de barras, depois da remoção dos outliers dos Story Points.
+### Projeto 7764
 
 ```{python}
 value_count = df_clean['storypoints'].value_counts().sort_index()
-plt.figure(figsize=(8, 6))
-value_count.plot(kind='bar')
-plt.title('Value Counts dos Story Points do Projeto 7764')
-plt.xlabel('Valores do Story Point')
-plt.ylabel('Contagem de vezes dos Story Points')
 plt.show()
 ```
+
+:::: {.columns}
+
+::: {.column width="60%"}
+```{python}
+plt.figure(figsize=(6, 4))
+value_count.plot(kind='bar', color=['blue'])
+plt.xlabel('Story Points')
+plt.ylabel('Contagem')
+plt.show()
+```
+:::
+
+::: {.column width="40%"}
+```{python}
+plt.figure(figsize=(4, 4))
+plt.boxplot(df_clean['storypoints'])
+plt.xticks([1], ['Story Points'])
+plt.show()
+```
+:::
+
+::::
 
 ::: footer
 Made by Giseldo
 :::
 
-## Resultados {.smaller}
+## Modelo Preditivo {.smaller }
 
-Resultados da comparação do Erro Médio Absoluto de todos os 34 Modelos construídos.
-
-```{python}
-A média de Story Point de todo o conjunto de dados é de 2.15 Story Point
+Erro médio absoluto do Modelo Preditivo. O Modelo que tem o menor MAE é o Neo Legibility.
 
 ```{python}
 def mean_absolute_error(y_true, y_pred):
@@ -199,7 +175,6 @@ def mean_absolute_error(y_true, y_pred):
   mae = sum(absolute_Errors) / len(y_true)
   return mae
 ```
-
 
 ```{python}
 num_linhas_treino = int(len(df_clean) * 0.7)
@@ -226,7 +201,7 @@ model = SVR()
 model.fit(dados_treino[colunas], dados_treino['storypoints'])
 y_pred = model.predict(dados_teste[colunas])
 mae_leg = mean_absolute_error(dados_teste['storypoints'], y_pred)
-df_results = df_results.append({'modelo':'Legibility SVM', 'MAE Teste': mae_leg, 'color': 'orange'}, ignore_index=True)
+df_results = df_results.append({'modelo':'Neo Legibility (SVM)', 'MAE Teste': mae_leg, 'color': 'orange'}, ignore_index=True)
 
 vec = TfidfVectorizer(max_features=50)
 tfidf_matrix_treino = vec.fit_transform(dados_treino['context'])
@@ -236,7 +211,7 @@ model = SVR()
 model.fit(tfidf_matrix_treino, dados_treino['storypoints'])
 y_pred = model.predict(tfidf_matrix_teste)
 mae_tfidf = mean_absolute_error(dados_teste['storypoints'], y_pred)
-df_results = df_results.append({'modelo':'TF-IDF SVM', 'MAE Teste': mae_tfidf, 'color': 'green'}, ignore_index=True)
+df_results = df_results.append({'modelo':'TF-IDF (SVM)', 'MAE Teste': mae_tfidf, 'color': 'green'}, ignore_index=True)
 
 plt.figure()
 df_results = df_results.sort_values(by='MAE Teste')
