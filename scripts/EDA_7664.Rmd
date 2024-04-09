@@ -13,7 +13,6 @@ from sklearn.svm import SVR
 from sklearn.feature_extraction.text import TfidfVectorizer
 ```
 
-
 ```{python}
 import logging; 
 logging.getLogger().setLevel(logging.CRITICAL)
@@ -51,10 +50,7 @@ df['storypoints'].describe()
 A grande maioria das User Story. 75% da amostra foi medido como 1, 2 ou 3 Story Points.
 
 
-
-
 ```{python}
-
 plt.figure(figsize=(8, 6))
 value_count.plot(kind='bar')
 plt.title('Value Counts dos Story Points do Projeto 7764')

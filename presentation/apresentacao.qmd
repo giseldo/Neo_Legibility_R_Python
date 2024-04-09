@@ -1,8 +1,13 @@
 ---
-title: "Análise Exploratório Projeto 7764"
-output: html_notebook
-author: 'Giseldo da Silva Néo'
+title: "Neo Legibility Effort Model"
+subtitle: "Tese de Giseldo da Silva Neo"
+format:
+  revealjs: 
+    theme: default
+editor: visual
 ---
+
+## Conjunto de dados {.smaller}
 
 ```{python}
 import pandas as pd
@@ -13,74 +18,132 @@ from sklearn.svm import SVR
 from sklearn.feature_extraction.text import TfidfVectorizer
 ```
 
+::: columns
+::: {.column width="35%"}
+#### Neo Dataset
 
-```{python}
-import logging; 
-logging.getLogger().setLevel(logging.CRITICAL)
-```
+O [Conjunto de dados](https://github.com/giseldo/neodataset) contém as User Story com seus respectivos Story Points de 34 Projetos de desenvolvimento de software.
+:::
+
+::: {.column width="3%"}
+:::
+
+::: {.column width="62%"}
 
 ```{python}
 name = '7764'
 filename = '../data/{}.csv'.format(name)
 df = pd.read_csv(filename)
-df.head()
+df[["issuekey","title", "description", "storypoints"]].head(2)
 ```
+:::
+:::
+
+::: footer
+Made by Giseldo
+:::
+
+## Transformação  {.smaller}
+
+A coluna **title** e **description** foi transformada em uma única coluna chamada **context**. As outras colunas foram removidas pois não trazem dados preditivos.
 
 ```{python}
-df.shape
-```
-Este conjunto de dados tem 355 observações. Cada observação é uma User Story do Projeto 7764. O conjunto de dados tem 5 colunas.
-
-```{python echo=False}
 df["context"] = df["title"] + df["description"]
 df = df.drop(['created', 'issuekey', 'title', 'description'], axis=1)
 df['context'] = df['context'].astype(str)
 df.head()
 ```
 
+::: footer
+Made by Giseldo
+:::
+
+## Story Point {.smaller}
+
+Contagem antes da remoção dos outliers.
+
 ```{python}
 value_count = df['storypoints'].value_counts().sort_index()
-df_value_count = pd.DataFrame(data = {'valures': value_count.index, 'Contagem': value_count.values})
+df_value_count = pd.DataFrame(data = {'Story Points': value_count.index, 'Contagem': value_count.values})
 df_value_count
 ```
 
+::: footer
+Made by Giseldo
+:::
+
+## Story Point 2 {.smaller}
+
+Gráfico de barras antes da remoção dos Story Points.
 
 ```{python}
-df['storypoints'].describe()
-```
-A grande maioria das User Story. 75% da amostra foi medido como 1, 2 ou 3 Story Points.
-
-
-
-
-```{python}
-
 plt.figure(figsize=(8, 6))
 value_count.plot(kind='bar')
-plt.title('Value Counts dos Story Points do Projeto 7764')
-plt.xlabel('Valores do Story Point')
-plt.ylabel('Contagem de vezes dos Story Points')
+plt.title('Contagem dos Story Points do Projeto 7764')
+plt.xlabel('Story Points')
+plt.ylabel('Contagem de vezes')
 plt.show()
 ```
+
+::: footer
+Made by Giseldo
+:::
+
+## Story Point 3 {.smaller}
+
+Boxplot antes da remoção dos Story Points.
 
 ```{python}
 plt.figure(figsize=(8, 2))
 plt.boxplot(df['storypoints'], vert=False)
-plt.title('Boxplot da Coluna Story Point')
-plt.xlabel('Valores do Story Point')
+plt.title('Boxplot dos Story Points')
+plt.xlabel('Valores do Story Points')
 plt.show()
 ```
 
-Existem outliers nos Story Points, ou seja alguns Story Points são distantes da média mais do que 2 desvios padrão.
+::: footer
+Made by Giseldo
+:::
 
+## Remoção Outiliers {.smaller auto-animate="true"}
+
+Foram removidos os Story Poits 2 desvios padrão depois da média.
+
+``` r
+mean = df['storypoints'].mean()
+std_dev = df['storypoints'].std()
+outlier_cutoff = 2 * std_dev
+df_clean = df[(df['storypoints'] >= mean - outlier_cutoff) & (df['storypoints'] < mean + outlier_cutoff)]
+```
 
 ```{python}
 mean = df['storypoints'].mean()
 std_dev = df['storypoints'].std()
 outlier_cutoff = 2 * std_dev
-df_clean = df[(df['storypoints'] >= mean - outlier_cutoff) & (df['storypoints'] <= mean + outlier_cutoff)]
-df_clean.head()
+df_clean = df[(df['storypoints'] >= mean - outlier_cutoff) & (df['storypoints'] < mean + outlier_cutoff)]
 ```
+
+::: footer
+Made by Giseldo
+:::
+
+## Story Point 1 {.smaller}
+
+Contagem, depois da remoção dos outliers.
+
+```{python}
+value_count = df['storypoints'].value_counts().sort_index()
+df_value_count = pd.DataFrame(data = {'Story Points': value_count.index, 'Contagem': value_count.values})
+df_value_count
+```
+
+::: footer
+Made by Giseldo
+:::
+
+## Story Point 2 {.smaller}
+
+Boxplot, depois da remoção dos outliers.
 
 ```{python}
 plt.figure(figsize=(8,2))
@@ -88,6 +151,14 @@ plt.boxplot(df_clean['storypoints'], vert=False)
 plt.title('Boxplot dos Story Points do Projeto 7764 depois da remoção dos outliers')
 plt.show()
 ```
+
+::: footer
+Made by Giseldo
+:::
+
+## Story Point 3 {.smaller}
+
+Gráfico de barras, depois da remoção dos outliers dos Story Points.
 
 ```{python}
 value_count = df_clean['storypoints'].value_counts().sort_index()
@@ -99,18 +170,15 @@ plt.ylabel('Contagem de vezes dos Story Points')
 plt.show()
 ```
 
-```{python}
-# separação treino e teste
-num_linhas_treino = int(len(df_clean) * 0.7)
-dados_treino = df_clean.iloc[:num_linhas_treino]
-dados_teste = df_clean.iloc[num_linhas_treino:]
-```
+::: footer
+Made by Giseldo
+:::
+
+## Resultados {.smaller}
+
+Resultados da comparação do Erro Médio Absoluto de todos os 34 Modelos construídos.
 
 ```{python}
-media_sp = dados_treino['storypoints'].mean()
-media_sp
-```
-
 A média de Story Point de todo o conjunto de dados é de 2.15 Story Point
 
 ```{python}
@@ -134,19 +202,16 @@ def mean_absolute_error(y_true, y_pred):
 
 
 ```{python}
+num_linhas_treino = int(len(df_clean) * 0.7)
+dados_treino = df_clean.iloc[:num_linhas_treino]
+dados_teste = df_clean.iloc[num_linhas_treino:]
+media_sp = dados_treino['storypoints'].mean()
+
 lista_y_pred = [media_sp] * len(dados_teste)
 mae_media_sp = mean_absolute_error(dados_teste['storypoints'], lista_y_pred)
-mae_media_sp
-```
 
-o MAE é de 1.31, quando utilizamos a média dos Story Points. Ou seja, o Erro médo absoluto é de 1.28 SP quando sempre utilizamos um valor fixo, lembrando que foi utilizado todo o conjunto de dados. 
-
-```{python}
 df_results = pd.DataFrame(data=[['Media', mae_media_sp, 'blue']], columns=['modelo', 'MAE Teste', "color"])
-df_results
-```
 
-```{python}
 colunas = ['gunning_fog', 'polarity','subjectivity']
 
 dados_treino['gunning_fog'] = dados_treino['context'].apply(textstat.gunning_fog)
@@ -156,33 +221,23 @@ dados_treino['subjectivity'] = dados_treino['context'].apply(lambda x: TextBlob(
 dados_teste['gunning_fog'] = dados_teste['context'].apply(textstat.gunning_fog)
 dados_teste['polarity'] = dados_teste['context'].apply(lambda x: TextBlob(x).sentiment.polarity)
 dados_teste['subjectivity'] = dados_teste['context'].apply(lambda x: TextBlob(x).sentiment.subjectivity)
-```
 
-```{python}
 model = SVR()
 model.fit(dados_treino[colunas], dados_treino['storypoints'])
 y_pred = model.predict(dados_teste[colunas])
 mae_leg = mean_absolute_error(dados_teste['storypoints'], y_pred)
 df_results = df_results.append({'modelo':'Legibility SVM', 'MAE Teste': mae_leg, 'color': 'orange'}, ignore_index=True)
-df_results
-```
-O MAE do modelo preditivo legibility é menor do que o MAE, quando utilizamos a média dos Story Poits.
 
-```{python}
 vec = TfidfVectorizer(max_features=50)
 tfidf_matrix_treino = vec.fit_transform(dados_treino['context'])
 tfidf_matrix_teste = vec.transform(dados_teste['context'])
-```
 
-```{python}
 model = SVR()
 model.fit(tfidf_matrix_treino, dados_treino['storypoints'])
 y_pred = model.predict(tfidf_matrix_teste)
 mae_tfidf = mean_absolute_error(dados_teste['storypoints'], y_pred)
 df_results = df_results.append({'modelo':'TF-IDF SVM', 'MAE Teste': mae_tfidf, 'color': 'green'}, ignore_index=True)
-df_results
-```
-```{python}
+
 plt.figure()
 df_results = df_results.sort_values(by='MAE Teste')
 plt.bar(df_results['modelo'], df_results['MAE Teste'], color=df_results['color'])
@@ -191,3 +246,7 @@ plt.xlabel('Modelos')
 plt.ylabel('MAE')
 plt.show()
 ```
+
+::: footer
+Made by Giseldo
+:::
