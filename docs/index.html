@@ -399,12 +399,16 @@
 </div>
 
 </section>
+<section id="hipótese" class="slide level2 smaller">
+<h2>Hipótese</h2>
+<p>A polaridade do sentimento (ou tom) da descrição da User Story, a subjetividade da descrição da User Story e a legibilidade da descrição da da User Story são bons preditores da estimativa de esforço em Story Points.</p>
+</section>
 <section id="conjunto-de-dados" class="slide level2 smaller">
 <h2>Conjunto de dados</h2>
 <div class="columns">
 <div class="column" style="width:35%;">
-<h4 id="neo-dataset">Neo Dataset</h4>
-<p>O <a href="https://github.com/giseldo/neodataset">Conjunto de dados</a> contém as User Story com seus respectivos Story Points de 34 Projetos de desenvolvimento de software.</p>
+<h4 id="conjunto-de-dados-1">Conjunto de dados</h4>
+<p>O <a href="https://github.com/giseldo/neodataset">Neo Dataset</a> contém as User Story com seus respectivos Story Points de 34 Projetos de desenvolvimento de software.</p>
 </div><div class="column" style="width:3%;">
 
 </div><div class="column" style="width:62%;">
@@ -462,8 +466,64 @@
 <p>Made by Giseldo</p>
 </div>
 </section>
+<section id="variáveis" class="slide level2 smaller">
+<h2>Variáveis</h2>
+<p>As variáveis do conjunto de dados são:</p>
+<table>
+<colgroup>
+<col style="width: 23%">
+<col style="width: 26%">
+<col style="width: 27%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variável</th>
+<th>Tipo</th>
+<th>Preditora ou Rótulo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>issuekey</td>
+<td>categórica simples</td>
+<td>-</td>
+<td>Chave</td>
+</tr>
+<tr class="even">
+<td>created</td>
+<td>data e hora</td>
+<td>-</td>
+<td>Data de criação</td>
+</tr>
+<tr class="odd">
+<td>title</td>
+<td>texto</td>
+<td>preditora</td>
+<td>Título da User Story</td>
+</tr>
+<tr class="even">
+<td>description</td>
+<td>texo</td>
+<td>preditora</td>
+<td>Descrição da User Story</td>
+</tr>
+<tr class="odd">
+<td>storypoints</td>
+<td>numérico discreto</td>
+<td>rótulo</td>
+<td>Story Point da User Story</td>
+</tr>
+</tbody>
+</table>
+<div class="footer">
+<p>Made by Giseldo</p>
+</div>
+</section>
 <section id="transformação" class="slide level2 smaller">
 <h2>Transformação</h2>
+<h3 id="projeto-7764">Projeto 7764</h3>
 <p>A coluna <strong>title</strong> e <strong>description</strong> foi transformada em uma única coluna chamada <strong>context</strong>. As outras colunas foram removidas pois não trazem dados preditivos.</p>
 <div class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display" data-execution_count="51">
@@ -528,7 +588,7 @@
 </section>
 <section id="story-point" class="slide level2 smaller">
 <h2>Story Point</h2>
-<h3 id="projeto-7764">Projeto 7764</h3>
+<h3 id="projeto-7764-1">Projeto 7764</h3>
 <p>Detecado presença de outliers.</p>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -549,20 +609,21 @@
 <p>Made by Giseldo</p>
 </div>
 </section>
-<section id="código-para-remoção-dos-outiliers" class="slide level2 smaller" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Código para remoção dos outiliers</h2>
-<p>Foram removidos os Story Poits 2 desvios padrão antes e depois da média.</p>
+<section id="outliers" class="slide level2 smaller" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Outliers</h2>
+<p>Foram removidos os Story Poits com 2 desvios padrão antes e depois da média.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb1-1" class="hljs-ln-code"><a href="#cb1-1"></a>mean <span class="ot">=</span> df[<span class="st">'storypoints'</span>]<span class="fu">.mean</span>()</span>
 <span id="cb1-2" class="hljs-ln-code"><a href="#cb1-2"></a>std_dev <span class="ot">=</span> df[<span class="st">'storypoints'</span>]<span class="fu">.std</span>()</span>
 <span id="cb1-3" class="hljs-ln-code"><a href="#cb1-3"></a>outlier_cutoff <span class="ot">=</span> <span class="dv">2</span> <span class="sc">*</span> std_dev</span>
 <span id="cb1-4" class="hljs-ln-code"><a href="#cb1-4"></a>df_clean <span class="ot">=</span> df[(df[<span class="st">'storypoints'</span>] <span class="sc">&gt;=</span> mean <span class="sc">-</span> outlier_cutoff) <span class="sc">&amp;</span> (df[<span class="st">'storypoints'</span>] <span class="sc">&lt;</span> mean <span class="sc">+</span> outlier_cutoff)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Antes da remoção 355 observações. Depois 352 observações.</p>
 <div class="footer">
 <p>Made by Giseldo</p>
 </div>
 </section>
 <section id="story-point-sem-outliers" class="slide level2 smaller scrollable">
 <h2>Story Point (sem outliers)</h2>
-<h3 id="projeto-7764-1">Projeto 7764</h3>
+<h3 id="projeto-7764-2">Projeto 7764</h3>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell" data-execution_count="9">
@@ -582,17 +643,133 @@
 <p>Made by Giseldo</p>
 </div>
 </section>
+<section id="atributos-preditores-extraídos-da-user-story" class="slide level2 smaller">
+<h2>Atributos preditores extraídos da User Story</h2>
+<h3 id="projeto-7764-3">Projeto 7764</h3>
+<table>
+<colgroup>
+<col style="width: 26%">
+<col style="width: 28%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variável</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>gunning_fog</td>
+<td>numérico contínuo</td>
+<td>Legibilidade da User Story</td>
+</tr>
+<tr class="even">
+<td>polarity</td>
+<td>numérico contínuo</td>
+<td>Sentimento da User Story</td>
+</tr>
+<tr class="odd">
+<td>subjectivity</td>
+<td>numérico contínuo</td>
+<td>Subjetividade da User Story</td>
+</tr>
+</tbody>
+</table>
+<div class="footer">
+<p>Made by Giseldo</p>
+</div>
+</section>
+<section id="atributos-extraídos-da-user-story" class="slide level2 smaller">
+<h2>Atributos extraídos da User Story</h2>
+<h3 id="projeto-7764-4">Projeto 7764</h3>
+<div class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="61">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">storypoints</th>
+<th data-quarto-table-cell-role="th">context</th>
+<th data-quarto-table-cell-role="th">gunning_fog</th>
+<th data-quarto-table-cell-role="th">polarity</th>
+<th data-quarto-table-cell-role="th">subjectivity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">249</td>
+<td>2</td>
+<td>Community contribution pipelines failThere is ...</td>
+<td>7.41</td>
+<td>-0.203409</td>
+<td>0.276136</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">250</td>
+<td>2</td>
+<td>Reapply redirects in pipeline for testing manu...</td>
+<td>10.11</td>
+<td>0.159864</td>
+<td>0.403912</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">251</td>
+<td>1</td>
+<td>Add a visual element on Handbook pages to diff...</td>
+<td>11.00</td>
+<td>0.143325</td>
+<td>0.418265</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">252</td>
+<td>1</td>
+<td>Add A beginner's guide to GitOps ebook to topi...</td>
+<td>9.05</td>
+<td>0.155500</td>
+<td>0.423587</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">253</td>
+<td>1</td>
+<td>Commit disable scholarship apply buttonAfter t...</td>
+<td>10.64</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="footer">
+<p>Made by Giseldo</p>
+</div>
+</section>
 <section id="modelo-preditivo" class="slide level2 smaller">
 <h2>Modelo Preditivo</h2>
+<h3 id="projeto-7764-5">Projeto 7764</h3>
 <p>O Modelo que tem o menor MAE (erro médio absoluto) é o Neo Legibility.</p>
-<h3 id="projeto-7764-2">Projeto 7764</h3>
-<div class="columns">
-<div class="column" style="width:100%;">
-<div class="cell" data-execution_count="12">
+<div class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
-<p><img data-src="index_files/figure-revealjs/cell-13-output-1.png" width="821" height="450"></p>
-</div>
-</div>
+<p><img data-src="index_files/figure-revealjs/cell-15-output-1.png" width="821" height="450"></p>
 </div>
 </div>
 <div class="footer">
@@ -654,7 +831,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',

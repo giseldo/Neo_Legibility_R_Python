@@ -4,8 +4,14 @@ subtitle: "Giseldo da Silva Neo"
 format:
   revealjs: 
     theme: default
+    slide-number: true
 editor: visual
+
 ---
+
+## Hipótese {.smaller}
+
+A polaridade do sentimento (ou tom) da descrição da User Story, a subjetividade da descrição da User Story e a legibilidade da descrição da da User Story são bons preditores da estimativa de esforço em Story Points.
 
 ## Conjunto de dados {.smaller}
 
@@ -20,9 +26,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 ::: columns
 ::: {.column width="35%"}
-#### Neo Dataset
+#### Conjunto de dados
 
-O [Conjunto de dados](https://github.com/giseldo/neodataset) contém as User Story com seus respectivos Story Points de 34 Projetos de desenvolvimento de software.
+O [Neo Dataset](https://github.com/giseldo/neodataset) contém as User Story com seus respectivos Story Points de 34 Projetos de desenvolvimento de software.
 :::
 
 ::: {.column width="3%"}
@@ -42,7 +48,26 @@ df[["issuekey","title", "description", "storypoints"]].head(2)
 Made by Giseldo
 :::
 
+## Variáveis {.smaller}
+
+As variáveis do conjunto de dados são:
+
+| Variável         |Tipo                | Preditora ou Rótulo | Descrição       |
+|------------------|--------------------|---------------------|-----------------|
+| issuekey         | categórica simples |     -     | Chave                     |
+| created          | data e hora        |     -     | Data de criação           |
+| title            | texto              | preditora | Título da User Story      |
+| description      | texo               | preditora | Descrição da User Story   |
+| storypoints      | numérico discreto  | rótulo    | Story Point da User Story |
+
+
+::: footer
+Made by Giseldo
+:::
+
 ## Transformação {.smaller}
+
+### Projeto 7764
 
 A coluna **title** e **description** foi transformada em uma única coluna chamada **context**. As outras colunas foram removidas pois não trazem dados preditivos.
 
@@ -92,9 +117,11 @@ plt.show()
 Made by Giseldo
 :::
 
-## Código para remoção dos outiliers {.smaller auto-animate="true"}
+## Outliers {.smaller auto-animate="true"}
 
-Foram removidos os Story Poits 2 desvios padrão antes e depois da média.
+### Projeto 7764
+
+Foram removidos os Story Poits com 2 desvios padrão antes e depois da média.
 
 ``` r
 mean = df['storypoints'].mean()
@@ -109,6 +136,8 @@ std_dev = df['storypoints'].std()
 outlier_cutoff = 2 * std_dev
 df_clean = df[(df['storypoints'] >= mean - outlier_cutoff) & (df['storypoints'] < mean + outlier_cutoff)]
 ```
+
+Antes da remoção 355 observações. Depois 352 observações.
 
 ::: footer
 Made by Giseldo
@@ -148,15 +177,24 @@ plt.show()
 Made by Giseldo
 :::
 
-## Modelo Preditivo {.smaller}
-
-O Modelo que tem o menor MAE (erro médio absoluto) é o Neo Legibility.
+## Atributos preditores extraídos da User Story {.smaller }
 
 ### Projeto 7764
 
-::: columns
+| Variável         |Tipo                | Descrição                     |
+|------------------|--------------------|-------------------------------|
+| gunning_fog      | numérico contínuo  | Legibilidade da User Story    |
+| polarity         | numérico contínuo  | Sentimento da User Story      |
+| subjectivity     | numérico contínuo  | Subjetividade da User Story   |
 
-::: {.column width="100%"}
+::: footer
+Made by Giseldo
+:::
+
+## Data frame {.smaller }
+
+### Projeto 7764
+
 ```{python}
 def mean_absolute_error(y_true, y_pred):
   """
@@ -196,7 +234,23 @@ dados_treino['subjectivity'] = dados_treino['context'].apply(lambda x: TextBlob(
 dados_teste['gunning_fog'] = dados_teste['context'].apply(textstat.gunning_fog)
 dados_teste['polarity'] = dados_teste['context'].apply(lambda x: TextBlob(x).sentiment.polarity)
 dados_teste['subjectivity'] = dados_teste['context'].apply(lambda x: TextBlob(x).sentiment.subjectivity)
+```
 
+```{python}
+dados_teste.head()
+```
+
+::: footer
+Made by Giseldo
+:::
+
+## Modelo Preditivo {.smaller}
+
+### Projeto 7764
+
+O Modelo que tem o menor MAE (erro médio absoluto) é o Neo Legibility.
+
+```{python}
 model = SVR()
 model.fit(dados_treino[colunas], dados_treino['storypoints'])
 y_pred = model.predict(dados_teste[colunas])
@@ -222,9 +276,6 @@ plt.xlabel('Modelos')
 plt.ylabel('MAE')
 plt.show()
 ```
-:::
-
-:::
 
 ::: footer
 Made by Giseldo
