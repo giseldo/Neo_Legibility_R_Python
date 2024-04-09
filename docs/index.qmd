@@ -11,7 +11,7 @@ editor: visual
 
 ## Hipótese {.smaller}
 
-A polaridade do sentimento (ou tom) da descrição da User Story, a subjetividade da descrição da User Story e a legibilidade da descrição da da User Story são bons preditores da estimativa de esforço em Story Points.
+A polaridade do sentimento (ou tom) da descrição da User Story, a subjetividade da descrição da User Story e a legibilidade da descrição da da User Story são bons preditores da estimativa de esforço.
 
 ## Conjunto de dados {.smaller}
 
@@ -177,19 +177,7 @@ plt.show()
 Made by Giseldo
 :::
 
-## Atributos preditores extraídos da User Story {.smaller }
 
-### Projeto 7764
-
-| Variável         |Tipo                | Descrição                     |
-|------------------|--------------------|-------------------------------|
-| gunning_fog      | numérico contínuo  | Legibilidade da User Story    |
-| polarity         | numérico contínuo  | Sentimento da User Story      |
-| subjectivity     | numérico contínuo  | Subjetividade da User Story   |
-
-::: footer
-Made by Giseldo
-:::
 
 ## Data frame {.smaller }
 
@@ -244,7 +232,52 @@ dados_teste.head()
 Made by Giseldo
 :::
 
-## Modelo Preditivo {.smaller}
+## TF-IDF Model {.smaller }
+
+### Projeto 7764
+
+No TF-IDF a coluna context é transformada em uma matriz. Cada palavra é uma coluna dessa matriz. Por isso é interessante o uso de técnicas de pré-processamento de texto (para diminuir o número de palavras que não são relevantes).
+
+| Variável         |Tipo                | Descrição                     |
+|------------------|--------------------|-------------------------------|
+| context          | texto              | título + descrição            |
+| storypoint       | numérico contínuo  | Story Point da User Story     |
+
+::: footer
+Made by Giseldo
+:::
+
+## Neo Legibility {.smaller }
+
+### Projeto 7764
+
+Atributos extraídos da User Story (*)
+
+| Variável         |Tipo                | Descrição                     |
+|------------------|--------------------|-------------------------------|
+| *gunning_fog      | numérico contínuo  | Legibilidade da User Story    |
+| *polarity         | numérico contínuo  | Sentimento da User Story      |
+| *subjectivity     | numérico contínuo  | Subjetividade da User Story   |
+| storypoint       | numérico contínuo  | Story Point da User Story   |
+
+::: footer
+Made by Giseldo
+:::
+
+## Neo Legibility - Correlação {.smaller }
+
+### Projeto 7764
+
+Existe uma correlação fraca entre a legibilidade e os storypoints.
+
+```{python}
+dados_treino[['gunning_fog', 'polarity', 'subjectivity', 'storypoints']].corr()
+```
+::: footer
+Made by Giseldo
+:::
+
+## Resultado comparação entre os MAE dos modelos {.smaller}
 
 ### Projeto 7764
 

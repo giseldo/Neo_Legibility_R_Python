@@ -401,7 +401,7 @@
 </section>
 <section id="hipótese" class="slide level2 smaller">
 <h2>Hipótese</h2>
-<p>A polaridade do sentimento (ou tom) da descrição da User Story, a subjetividade da descrição da User Story e a legibilidade da descrição da da User Story são bons preditores da estimativa de esforço em Story Points.</p>
+<p>A polaridade do sentimento (ou tom) da descrição da User Story, a subjetividade da descrição da User Story e a legibilidade da descrição da da User Story são bons preditores da estimativa de esforço.</p>
 </section>
 <section id="conjunto-de-dados" class="slide level2 smaller">
 <h2>Conjunto de dados</h2>
@@ -413,7 +413,7 @@
 
 </div><div class="column" style="width:62%;">
 <div class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display" data-execution_count="50">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -526,7 +526,7 @@
 <h3 id="projeto-7764">Projeto 7764</h3>
 <p>A coluna <strong>title</strong> e <strong>description</strong> foi transformada em uma única coluna chamada <strong>context</strong>. As outras colunas foram removidas pois não trazem dados preditivos.</p>
 <div class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="51">
+<div class="cell-output cell-output-display" data-execution_count="18">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -611,6 +611,7 @@
 </section>
 <section id="outliers" class="slide level2 smaller" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Outliers</h2>
+<h3 id="projeto-7764-2">Projeto 7764</h3>
 <p>Foram removidos os Story Poits com 2 desvios padrão antes e depois da média.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb1-1" class="hljs-ln-code"><a href="#cb1-1"></a>mean <span class="ot">=</span> df[<span class="st">'storypoints'</span>]<span class="fu">.mean</span>()</span>
 <span id="cb1-2" class="hljs-ln-code"><a href="#cb1-2"></a>std_dev <span class="ot">=</span> df[<span class="st">'storypoints'</span>]<span class="fu">.std</span>()</span>
@@ -623,7 +624,7 @@
 </section>
 <section id="story-point-sem-outliers" class="slide level2 smaller scrollable">
 <h2>Story Point (sem outliers)</h2>
-<h3 id="projeto-7764-2">Projeto 7764</h3>
+<h3 id="projeto-7764-3">Projeto 7764</h3>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell" data-execution_count="9">
@@ -643,49 +644,11 @@
 <p>Made by Giseldo</p>
 </div>
 </section>
-<section id="atributos-preditores-extraídos-da-user-story" class="slide level2 smaller">
-<h2>Atributos preditores extraídos da User Story</h2>
-<h3 id="projeto-7764-3">Projeto 7764</h3>
-<table>
-<colgroup>
-<col style="width: 26%">
-<col style="width: 28%">
-<col style="width: 44%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variável</th>
-<th>Tipo</th>
-<th>Descrição</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>gunning_fog</td>
-<td>numérico contínuo</td>
-<td>Legibilidade da User Story</td>
-</tr>
-<tr class="even">
-<td>polarity</td>
-<td>numérico contínuo</td>
-<td>Sentimento da User Story</td>
-</tr>
-<tr class="odd">
-<td>subjectivity</td>
-<td>numérico contínuo</td>
-<td>Subjetividade da User Story</td>
-</tr>
-</tbody>
-</table>
-<div class="footer">
-<p>Made by Giseldo</p>
-</div>
-</section>
-<section id="atributos-extraídos-da-user-story" class="slide level2 smaller">
-<h2>Atributos extraídos da User Story</h2>
+<section id="data-frame" class="slide level2 smaller">
+<h2>Data frame</h2>
 <h3 id="projeto-7764-4">Projeto 7764</h3>
 <div class="cell" data-execution_count="13">
-<div class="cell-output cell-output-display" data-execution_count="61">
+<div class="cell-output cell-output-display" data-execution_count="28">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -763,13 +726,161 @@
 <p>Made by Giseldo</p>
 </div>
 </section>
-<section id="modelo-preditivo" class="slide level2 smaller">
-<h2>Modelo Preditivo</h2>
+<section id="tf-idf-model" class="slide level2 smaller">
+<h2>TF-IDF Model</h2>
 <h3 id="projeto-7764-5">Projeto 7764</h3>
-<p>O Modelo que tem o menor MAE (erro médio absoluto) é o Neo Legibility.</p>
+<p>No TF-IDF a coluna context é transformada em uma matriz esparça para cada palavra. Por isso é interessante o uso de técnicas de pré-processamento de texto (para diminuir o número de palavras que não são relevantes).</p>
+<table>
+<colgroup>
+<col style="width: 26%">
+<col style="width: 28%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variável</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>context</td>
+<td>texto</td>
+<td>título + descrição</td>
+</tr>
+<tr class="even">
+<td>storypoint</td>
+<td>numérico contínuo</td>
+<td>Story Point da User Story</td>
+</tr>
+</tbody>
+</table>
+<div class="footer">
+<p>Made by Giseldo</p>
+</div>
+</section>
+<section id="neo-legibility" class="slide level2 smaller">
+<h2>Neo Legibility</h2>
+<h3 id="projeto-7764-6">Projeto 7764</h3>
+<p>Atributos extraídos da User Story (*)</p>
+<table>
+<colgroup>
+<col style="width: 26%">
+<col style="width: 28%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variável</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>*gunning_fog</td>
+<td>numérico contínuo</td>
+<td>Legibilidade da User Story</td>
+</tr>
+<tr class="even">
+<td>*polarity</td>
+<td>numérico contínuo</td>
+<td>Sentimento da User Story</td>
+</tr>
+<tr class="odd">
+<td>*subjectivity</td>
+<td>numérico contínuo</td>
+<td>Subjetividade da User Story</td>
+</tr>
+<tr class="even">
+<td>storypoint</td>
+<td>numérico contínuo</td>
+<td>Story Point da User Story</td>
+</tr>
+</tbody>
+</table>
+<div class="footer">
+<p>Made by Giseldo</p>
+</div>
+</section>
+<section id="neo-legibility---correlação" class="slide level2 smaller">
+<h2>Neo Legibility - Correlação</h2>
+<h3 id="projeto-7764-7">Projeto 7764</h3>
+<p>Existe uma correlação fraca entre a legibilidade e os storypoints.</p>
 <div class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">gunning_fog</th>
+<th data-quarto-table-cell-role="th">polarity</th>
+<th data-quarto-table-cell-role="th">subjectivity</th>
+<th data-quarto-table-cell-role="th">storypoints</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">gunning_fog</td>
+<td>1.000000</td>
+<td>0.132121</td>
+<td>0.030408</td>
+<td>0.147115</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">polarity</td>
+<td>0.132121</td>
+<td>1.000000</td>
+<td>0.386722</td>
+<td>0.071049</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">subjectivity</td>
+<td>0.030408</td>
+<td>0.386722</td>
+<td>1.000000</td>
+<td>-0.040362</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">storypoints</td>
+<td>0.147115</td>
+<td>0.071049</td>
+<td>-0.040362</td>
+<td>1.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="footer">
+<p>Made by Giseldo</p>
+</div>
+</section>
+<section id="resultado-comparação-entre-os-mae-dos-modelos" class="slide level2 smaller">
+<h2>Resultado comparação entre os MAE dos modelos</h2>
+<h3 id="projeto-7764-8">Projeto 7764</h3>
+<p>O Modelo que tem o menor MAE (erro médio absoluto) é o Neo Legibility.</p>
+<div class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
-<p><img data-src="index_files/figure-revealjs/cell-15-output-1.png" width="821" height="450"></p>
+<p><img data-src="index_files/figure-revealjs/cell-16-output-1.png" width="821" height="450"></p>
 </div>
 </div>
 <div class="footer">
