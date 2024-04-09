@@ -29,7 +29,6 @@ O [Conjunto de dados](https://github.com/giseldo/neodataset) contém as User Sto
 :::
 
 ::: {.column width="62%"}
-
 ```{python}
 name = '7764'
 filename = '../data/{}.csv'.format(name)
@@ -43,7 +42,7 @@ df[["issuekey","title", "description", "storypoints"]].head(2)
 Made by Giseldo
 :::
 
-## Transformação  {.smaller}
+## Transformação {.smaller}
 
 A coluna **title** e **description** foi transformada em uma única coluna chamada **context**. As outras colunas foram removidas pois não trazem dados preditivos.
 
@@ -58,7 +57,7 @@ df.head()
 Made by Giseldo
 :::
 
-## Story Point  {.smaller}
+## Story Point {.smaller}
 
 ### Projeto 7764
 
@@ -68,8 +67,7 @@ Detecado presença de outliers.
 value_count = df['storypoints'].value_counts().sort_index()
 ```
 
-:::: {.columns}
-
+::: columns
 ::: {.column width="60%"}
 ```{python}
 plt.figure(figsize=(6, 4))
@@ -88,8 +86,7 @@ plt.xticks([1], ['Story Points'])
 plt.show()
 ```
 :::
-
-::::
+:::
 
 ::: footer
 Made by Giseldo
@@ -126,8 +123,7 @@ value_count = df_clean['storypoints'].value_counts().sort_index()
 plt.show()
 ```
 
-:::: {.columns}
-
+::: columns
 ::: {.column width="60%"}
 ```{python}
 plt.figure(figsize=(6, 4))
@@ -146,17 +142,21 @@ plt.xticks([1], ['Story Points'])
 plt.show()
 ```
 :::
-
-::::
+:::
 
 ::: footer
 Made by Giseldo
 :::
 
-## Modelo Preditivo {.smaller }
+## Modelo Preditivo {.smaller}
 
-Erro médio absoluto do Modelo Preditivo. O Modelo que tem o menor MAE é o Neo Legibility.
+O Modelo que tem o menor MAE (erro médio absoluto) é o Neo Legibility.
 
+### Projeto 7764
+
+::: columns
+
+::: {.column width="100%"}
 ```{python}
 def mean_absolute_error(y_true, y_pred):
   """
@@ -216,11 +216,15 @@ df_results = df_results.append({'modelo':'TF-IDF (SVM)', 'MAE Teste': mae_tfidf,
 plt.figure()
 df_results = df_results.sort_values(by='MAE Teste')
 plt.bar(df_results['modelo'], df_results['MAE Teste'], color=df_results['color'])
+plt.ylim(1.1, 1.4)
 plt.title('Comparação do MAE entre os modelos')
 plt.xlabel('Modelos')
 plt.ylabel('MAE')
 plt.show()
 ```
+:::
+
+:::
 
 ::: footer
 Made by Giseldo
