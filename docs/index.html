@@ -402,6 +402,9 @@
 <section id="hipótese" class="slide level2 smaller">
 <h2>Hipótese</h2>
 <p>A polaridade do sentimento (ou tom) da descrição da User Story, a subjetividade da descrição da User Story e a legibilidade da descrição da da User Story são bons preditores da estimativa de esforço.</p>
+<div class="footer">
+<p>Made by Giseldo. <a href="https://github.com/giseldo/Neo_Legibility_R_Python">Source Code</a></p>
+</div>
 </section>
 <section id="conjunto-de-dados" class="slide level2 smaller">
 <h2>Conjunto de dados</h2>
@@ -413,7 +416,7 @@
 
 </div><div class="column" style="width:62%;">
 <div class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="18">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -471,10 +474,10 @@
 <p>As variáveis do conjunto de dados são:</p>
 <table>
 <colgroup>
-<col style="width: 23%">
-<col style="width: 26%">
-<col style="width: 27%">
-<col style="width: 22%">
+<col style="width: 16%">
+<col style="width: 24%">
+<col style="width: 25%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -526,7 +529,7 @@
 <h3 id="projeto-7764">Projeto 7764</h3>
 <p>A coluna <strong>title</strong> e <strong>description</strong> foi transformada em uma única coluna chamada <strong>context</strong>. As outras colunas foram removidas pois não trazem dados preditivos.</p>
 <div class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -589,7 +592,7 @@
 <section id="story-point" class="slide level2 smaller">
 <h2>Story Point</h2>
 <h3 id="projeto-7764-1">Projeto 7764</h3>
-<p>Detecado presença de outliers.</p>
+<p>Detectado presença de outliers.</p>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell" data-execution_count="5">
@@ -648,7 +651,7 @@
 <h2>Data frame</h2>
 <h3 id="projeto-7764-4">Projeto 7764</h3>
 <div class="cell" data-execution_count="13">
-<div class="cell-output cell-output-display" data-execution_count="28">
+<div class="cell-output cell-output-display" data-execution_count="29">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -729,13 +732,8 @@
 <section id="tf-idf-model" class="slide level2 smaller">
 <h2>TF-IDF Model</h2>
 <h3 id="projeto-7764-5">Projeto 7764</h3>
-<p>No TF-IDF a coluna context é transformada em uma matriz esparça para cada palavra. Por isso é interessante o uso de técnicas de pré-processamento de texto (para diminuir o número de palavras que não são relevantes).</p>
+<p>No TF-IDF a coluna context é transformada em uma matriz. Cada palavra é uma coluna dessa matriz. Por isso é interessante o uso de técnicas de pré-processamento de texto (para diminuir o número de palavras que não são relevantes).</p>
 <table>
-<colgroup>
-<col style="width: 26%">
-<col style="width: 28%">
-<col style="width: 44%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Variável</th>
@@ -765,11 +763,6 @@
 <h3 id="projeto-7764-6">Projeto 7764</h3>
 <p>Atributos extraídos da User Story (*)</p>
 <table>
-<colgroup>
-<col style="width: 26%">
-<col style="width: 28%">
-<col style="width: 44%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Variável</th>
@@ -807,67 +800,13 @@
 <section id="neo-legibility---correlação" class="slide level2 smaller">
 <h2>Neo Legibility - Correlação</h2>
 <h3 id="projeto-7764-7">Projeto 7764</h3>
-<p>Existe uma correlação fraca entre a legibilidade e os storypoints.</p>
-<div class="cell" data-execution_count="14">
-<div class="cell-output cell-output-display" data-execution_count="29">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">gunning_fog</th>
-<th data-quarto-table-cell-role="th">polarity</th>
-<th data-quarto-table-cell-role="th">subjectivity</th>
-<th data-quarto-table-cell-role="th">storypoints</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">gunning_fog</td>
-<td>1.000000</td>
-<td>0.132121</td>
-<td>0.030408</td>
-<td>0.147115</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">polarity</td>
-<td>0.132121</td>
-<td>1.000000</td>
-<td>0.386722</td>
-<td>0.071049</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">subjectivity</td>
-<td>0.030408</td>
-<td>0.386722</td>
-<td>1.000000</td>
-<td>-0.040362</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">storypoints</td>
-<td>0.147115</td>
-<td>0.071049</td>
-<td>-0.040362</td>
-<td>1.000000</td>
-</tr>
-</tbody>
-</table>
-
+<p>Existe uma correlação fraca entre gunning_fog e os storypoints.</p>
+<div class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>&lt;AxesSubplot: &gt;</code></pre>
 </div>
+<div class="cell-output cell-output-display">
+<p><img data-src="index_files/figure-revealjs/cell-16-output-2.png" width="723" height="416"></p>
 </div>
 </div>
 <div class="footer">
@@ -878,14 +817,18 @@
 <h2>Resultado comparação entre os MAE dos modelos</h2>
 <h3 id="projeto-7764-8">Projeto 7764</h3>
 <p>O Modelo que tem o menor MAE (erro médio absoluto) é o Neo Legibility.</p>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
-<p><img data-src="index_files/figure-revealjs/cell-16-output-1.png" width="821" height="450"></p>
+<p><img data-src="index_files/figure-revealjs/cell-17-output-1.png" width="821" height="450"></p>
 </div>
 </div>
 <div class="footer">
 <p>Made by Giseldo</p>
 </div>
+</section>
+<section id="resultado-final" class="slide level2 smaller">
+<h2>Resultado Final</h2>
+<p>Contador de quantas vezes o Neo Legibility teve um MAE menor em cada um dos projetos.</p>
 <div class="footer footer-default">
 
 </div>

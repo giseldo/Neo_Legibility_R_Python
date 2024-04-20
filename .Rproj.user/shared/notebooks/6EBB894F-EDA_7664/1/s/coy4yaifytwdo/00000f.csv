@@ -1,5 +1,0 @@
-"0","# separação treino e teste"
-"0","num_linhas_treino = int(len(df_clean) * 0.7)"
-"0","dados_treino = df_clean.iloc[:num_linhas_treino]"
-"0","dados_teste = df_clean.iloc[num_linhas_treino:]"
-"0",""

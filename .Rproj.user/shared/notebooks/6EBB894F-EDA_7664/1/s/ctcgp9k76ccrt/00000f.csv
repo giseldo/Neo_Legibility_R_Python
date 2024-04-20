@@ -1,5 +1,0 @@
-"0","lista_y_pred = [media_sp] * len(dados_teste)"
-"0","mae_media_sp = mean_absolute_error(dados_teste['storypoints'], lista_y_pred)"
-"0","mae_media_sp"
-"1","1.3193741371375978
-"
