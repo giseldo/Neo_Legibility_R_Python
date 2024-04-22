@@ -2,7 +2,8 @@
 
 Author: Giseldo da Silva Neo
 
-Slide do Neo Effort Estimation
+[Slide](https://rpubs.com/giseldo/neo_effort_estimation) do Neo Effort Estimation
+
 
 # How to cite
 

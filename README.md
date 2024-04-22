@@ -2,7 +2,11 @@
 
 Códio Python no RPubs dos experimentos
 
-Author: Giseldo da Silva Neo (giseldo@gmail.com)
+Author: [Giseldo da Silva Neo](giseldo@gmail.com)
+
+- Pasta script contém um EDA de um projeto do dataset
+
+- Pasta doc contém o slide.
 
 # How to Cite
 

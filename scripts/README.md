@@ -1,8 +1,8 @@
 # Sobre
 
-Estatical data analisys from one project from (neodataset)[https://github.com/giseldo/neodataset]
+Estatical data analisys from one project from [neodataset](https://github.com/giseldo/neodataset)
 
-Author: Giseldo da Silva Neo (giseldo@gmail.com)
+Author: [Giseldo da Silva Neo](giseldo@gmail.com)
 
 # How to Cite
 
