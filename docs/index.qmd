@@ -56,7 +56,7 @@ Made by Giseldo
 As variáveis do conjunto de dados são:
 
 | Variável    | Tipo               | Preditora ou Rótulo | Descrição                 |
-|-------------|--------------------|---------------------|---------------------------|
+|-----------------|-----------------|-----------------|----------------------|
 | issuekey    | categórica simples | \-                  | Chave                     |
 | created     | data e hora        | \-                  | Data de criação           |
 | title       | texto              | preditora           | Título da User Story      |
@@ -323,3 +323,22 @@ Made by Giseldo
 ## Resultado Final {.smaller}
 
 Contador de quantas vezes o Neo Legibility teve um MAE menor em cada um dos projetos.
+
+```{python}
+import matplotlib.pyplot as plt
+
+# Dados
+labels = ['Neo Legibility', 'TF-IDF', 'Média']
+sizes = [15, 10, 8] 
+colors = ['orange', 'lightblue', 'indianred']
+
+plt.figure(figsize=(6,6))
+plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=140, textprops={'fontsize': 12})
+
+# Adicionar título
+#plt.title('Contagem do Melhor Modelo')
+
+# Mostrar o gráfico
+plt.axis('equal')  # Assegura que o gráfico de pizza seja desenhado como um círculo
+plt.show()
+```
